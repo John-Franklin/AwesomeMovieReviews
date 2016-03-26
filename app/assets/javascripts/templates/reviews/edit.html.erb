@@ -1,0 +1,46 @@
+<form name="editReview">
+  <fieldset>
+    <div class="modal-header">
+    <h3 ng-show="review && review.id">
+      Edit Review
+    </h3>
+    <h3 ng-show="review && !review.id">
+      New Review
+    </h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group has-feedback">
+          <label class="control-label">Email</label>
+          <input type="text" class="form-control" name="review[rating]" id="lastnameinput" ng-model="review.email" aria-describedby="lastnameinput" required>
+          <span ng-show="editReview.email.$error.required" class="help-inline">
+            Required
+          </span>
+        </div>
+      <div class="form-group has-feedback">
+        <label class="control-label">Rating</label>
+            <input type="number" class="form-control" name="review[rating]" ng-model="review.rating" class="number_field" min="1" max="5" required>
+          <span ng-show="editReview.rating.$error.required"
+                class="help-inline">
+            Required
+          </span>
+      </div>
+      <div class="form-group has-feedback">
+        <label class="control-label">Comment</label>
+        <input type="text" class="form-control" name="review[comment]" ng-model="review.comment" class="text_area">
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="form-actions">
+        <button class="btn btn-success" ng-click="save()"
+          ng-disabled="isClean() || editReview.$invalid">
+          Save
+        </button>
+        <a ng-click="dismiss()" class="btn">
+          Back to reviews
+        </a>
+      </div>
+    </div>
+  </fieldset>
+</form>
+

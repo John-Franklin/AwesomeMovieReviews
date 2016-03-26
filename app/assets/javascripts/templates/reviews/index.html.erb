@@ -1,8 +1,8 @@
-<header class="intro" style="background-size: cover" ng-style="{'background-image':'url(http://image.tmdb.org/t/p/w500/'+movie.backdrop_path+')'}">
+<header class="intro" style="background-size: cover"  ng-show="isntBrowse" ng-style="{'background-image':'url(http://image.tmdb.org/t/p/w500/'+movie.backdrop_path+')'}">
 <div class="intro-body">
   <div class="container">
     <div class="row">
-      <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-8 col-md-offset-2 imgreadable">
         <h1 class="brand-heading">{{movie.title}}</h1>
         <p class="intro-text">{{movie.overview}}</p>
       </div>
@@ -10,7 +10,9 @@
   </div>
 </div>
 </header>
-<h1>Reviews</h1>
+<h1 ng-show="isntBrowse">Reviews</h1>
+<h1 ng-show="reviews && !isntBrowse">Recent Reviews</h1>
+<p ng-show="isntBrowse">Average Rating: {{total}}</p>
 <table class="table">
   <thead>
     <tr>
@@ -21,7 +23,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="review in reviews">
+    <tr ng-repeat="review in reviews | orderBy:'-id'">
         <td>
           {{review.email}}
         </td>
@@ -31,17 +33,20 @@
         <td>
           {{review.comment}}
         </td>
-      <td>
+      <td ng-show="isntBrowse && reviews.email == user.email">
         <button class="btn btn-primary" ng-click="editModal(review)"><i class="icon-edit"></i>
           Edit
         </button>
+      </td>
+      <td ng-show="reviews & !isntBrowse">
+        <a class="btn" href="href="reviews?movie={{review.movie}}">View Movie</a>
       </td>
     </tr>
   </tbody>
 </table>
 
 <p>
-  <button class="btn btn-primary" ng-click="editModal(blank)">
+  <button class="btn btn-primary" ng-show="isntBrowse" ng-click="editModal(blank)">
     <i class="icon-plus"></i>New
   </button>
 </p>

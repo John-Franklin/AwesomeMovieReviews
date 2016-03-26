@@ -1,0 +1,55 @@
+<h1 style="margin-top: .7em; margin-left: .4em">Search</h1>
+
+<div class="row container">
+
+  <div class="form-group has-feedback">
+    <div class="col-md-6">
+    <input type="text" class="form-control" ng-model="query" style="display: inline"  minlength="3" required>
+    </div><div>
+    <button class="btn" ng-click="search()">
+      Go
+    </button>
+    </div>
+  </div>
+  </div>
+<div class="row container modal-header" style="margin-bottom: 1em; margin-left: 2em">
+  <div class="col-md-2">
+    Sort by:
+  </div>
+  <div class="col-md-2">
+    Title
+    <input type="radio" ng-model="sortBy" value="title">
+  </div>
+  <div class="col-md-2">
+    Release Date
+    <input type="radio"  ng-model="sortBy" value="-release_date">
+  </div>
+  <div class="col-md-2">
+    Genre
+    <input type="radio"  ng-model="sortBy" value="genres[0].name">
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
+<p style="margin-left: 2em" ng-show="noResults" >No results. Try something else.</p>
+<div ng-repeat="movie in movieList | orderBy:sortBy" class="row container panel modal-content" style="margin-left: 2em; padding-bottom: .7em; padding-top: .7em">
+  <div class="col-md-2">
+
+    <img ng-src="http://image.tmdb.org/t/p/w500/{{movie.poster_path}}" ng-show="movie.poster_path && movie.poster_path != 'null'" width="100"/>
+  </div>
+  <div class="col-md-2">
+    {{movie.title}}
+  </div>
+  <div class="col-md-2">
+    {{movie.release_date}}
+  </div>
+  <div class="col-md-2">
+    {{movie.genres[0].name}}
+  </div>
+  <div class="col-md-3">
+    {{movie.overview}}
+  </div>
+  <a class="col-md-1 btn " href="reviews?movie={{movie.id}}">
+    Reviews
+  </a>
+</div>

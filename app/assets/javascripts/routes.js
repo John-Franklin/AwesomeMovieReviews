@@ -6,7 +6,7 @@
 
   angular = root.angular;
 
-  thisApp = angular.module("AwesomeMovieReviewsClient", ['ngCookies', 'ngRoute', 'ngResource', 'ui.bootstrap', 'ui.bootstrap.tpls']).config([
+  thisApp = angular.module("AwesomeMovieReviewsClient", ['ngCookies', 'ngRoute', 'ngResource', 'ui.bootstrap', 'ui.bootstrap.tpls', 'templates']).config([
     '$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
       $locationProvider.html5Mode(true);
       $httpProvider.defaults.headers.post['Accept'] = 'application/json';
@@ -23,17 +23,11 @@
         templateUrl: "<%= asset_path('welcome/index.html') %>"
       }).
     when('/reviews', {controller:ReviewsIndexCtrl,
-      templateUrl:'<%= asset_path("reviews/index.html") %>'}).
-    when('/reviews/new', {controller:ReviewsCreateCtrl,
-      templateUrl:'<%= asset_path("reviews/new.html") %>'}).
-    when('/reviews/:id', {controller:ReviewsShowCtrl,
-      templateUrl:'<%= asset_path("reviews/show.html") %>'}).
-    when('/reviews/:id/edit', {controller:ReviewsEditCtrl,
-      templateUrl:'<%= asset_path("reviews/edit.html") %>'}).
+      templateUrl:'reviews/index.html'}).
     when('/search', {controller:"search",
-      templateUrl:'<%= asset_path("movieSearch/movie.html") %>'}).
+      templateUrl:'movieSearch/movie.html'}).
       otherwise({
-        redirectTo: "/"
+        redirectTo: "/reviews"
       });
     }
 

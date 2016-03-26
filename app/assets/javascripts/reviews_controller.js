@@ -1,6 +1,8 @@
 ReviewsIndexCtrl = function($scope, $routeParams, Review, $http, $uibModal) {
+  $scope.isntBrowse = $routeParams.movie != null;
   $scope.blank = new Review();
     if($routeParams.movie) {
+      $scope.blank.movie = $routeParams.movie
         $http.jsonp("http://api.themoviedb.org/3/movie/"+$routeParams.movie + "?api_key=1e0d0191f8844600e0220d21e1fe0b16&callback=JSON_CALLBACK").success(function(data){
             $scope.movie = data;
             //not needed here. Will be needed for search.
@@ -24,12 +26,14 @@ ReviewsIndexCtrl = function($scope, $routeParams, Review, $http, $uibModal) {
       $scope.currev = review;
 
       if(review === $scope.blank)
-        $scope.reviews.add(review)
-
+        $scope.reviews.push(review);
+      else {
+        $scope.oldRev = _.clone(review);
+      }
       $scope.modalInstance = $uibModal.open({
           windowClass: "modal fade",
           animation: true,
-          templateUrl: '<%= asset_path("reviews/edit.html") %>',
+          templateUrl: 'reviews/edit.html',
           controller: ReviewsEditCtrl,
           resolve: {//need to be able to call loginModal/
               oldScope: function () {
@@ -47,7 +51,9 @@ ReviewsIndexCtrl = function($scope, $routeParams, Review, $http, $uibModal) {
         //
         if(!review.id)
           $scope.reviews.pop();
-          // console.log($scope.ratings)
+        else//snap back
+          review = $scope.oldRev;
+
       });
     }
 

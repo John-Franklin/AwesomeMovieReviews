@@ -15,5 +15,7 @@
 //= require_tree ./bootstrap/
 //= require ./bower_components/angular-bootstrap/ui-bootstrap.min.js
 //= require ./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js
+//= require angular-rails-templates
 //= require routes.js
+
 //= require_tree .
