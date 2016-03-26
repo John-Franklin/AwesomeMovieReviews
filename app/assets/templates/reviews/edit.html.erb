@@ -1,0 +1,84 @@
+<form name="editReview">
+  <fieldset>
+    <legend ng-show="review && review.createdAt">
+      Edit Review
+    </legend>
+    <legend ng-show="review && !review.createdAt">
+      New Review
+    </legend>
+      <div class="control-group">
+        <label class="control-label">
+          Movie
+        </label>
+        <div class="controls">
+            <input type="text"
+                   name="review[movie]"
+                   ng-model="review.movie"
+                   class="text_field"
+                   required>
+          <span ng-show="editReview.movie.$error.required"
+                class="help-inline">
+            Required
+          </span>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">
+          Email
+        </label>
+        <div class="controls">
+            <input type="text"
+                   name="review[email]"
+                   ng-model="review.email"
+                   class="text_field"
+                   required>
+          <span ng-show="editReview.email.$error.required"
+                class="help-inline">
+            Required
+          </span>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">
+          Rating
+        </label>
+        <div class="controls">
+            <input type="number"
+                   name="review[rating]"
+                   ng-model="review.rating"
+                   class="number_field"
+                   required>
+          <span ng-show="editReview.rating.$error.required"
+                class="help-inline">
+            Required
+          </span>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">
+          Comment
+        </label>
+        <div class="controls">
+            <input type="text"
+                   name="review[comment]"
+                   ng-model="review.comment"
+                   class="text_area"
+                   required>
+          <span ng-show="editReview.comment.$error.required"
+                class="help-inline">
+            Required
+          </span>
+        </div>
+      </div>
+    <div class="form-actions">
+      <button class="btn btn-success" ng-click="save()"
+        ng-disabled="isClean() || editReview.$invalid">
+        Save
+      </button>
+      <a href="/reviews" class="btn">
+        Back to reviews
+      </a>
+    </div>
+  </fieldset>
+</form>
+

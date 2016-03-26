@@ -1,0 +1,47 @@
+<header class="intro" style="background-size: cover" ng-style="{'background-image':'url(http://image.tmdb.org/t/p/w500/'+movie.backdrop_path+')'}">
+<div class="intro-body">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <h1 class="brand-heading">{{movie.title}}</h1>
+        <p class="intro-text">{{movie.overview}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+<h1>Reviews</h1>
+<table class="table">
+  <thead>
+    <tr>
+        <th>Email</th>
+        <th>Rating</th>
+        <th>Comment</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="review in reviews">
+        <td>
+          {{review.email}}
+        </td>
+        <td>
+          {{review.rating}}
+        </td>
+        <td>
+          {{review.comment}}
+        </td>
+      <td>
+        <button class="btn btn-primary" ng-click="editModal(review)"><i class="icon-edit"></i>
+          Edit
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  <button class="btn btn-primary" ng-click="editModal(blank)">
+    <i class="icon-plus"></i>New
+  </button>
+</p>

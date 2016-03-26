@@ -1,0 +1,35 @@
+<h1>Review</h1>
+
+<p>
+  <b>Movie</b><br>
+  {{review.movie}}
+</p>
+
+<p>
+  <b>Email</b><br>
+  {{review.email}}
+</p>
+
+<p>
+  <b>Rating</b><br>
+  {{review.rating}}
+</p>
+
+<p>
+  <b>Comment</b><br>
+  {{review.comment}}
+</p>
+
+<div class="form-actions">
+  <a href="/reviews/{{review.id}}/edit"
+    class="btn btn-primary"><i class="icon-edit"></i>
+    Edit Review
+  </a>
+  <button ng-click="destroy()" class="btn btn-danger">
+    <i class="icon-trash"></i> Delete
+  </button>
+  <a href="/reviews" class="btn">
+    Back to reviews
+  </a>
+</div>
+
