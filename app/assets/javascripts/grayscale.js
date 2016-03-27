@@ -33,7 +33,12 @@ $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
   }
 });
-
+// added in from stackexchange. Closes the menu when you tap elsewhere, which is important because the menu is there as you scroll.
+$(document).on('click','.navbar-collapse.in',function(e) {
+    if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
+        $(this).collapse('hide');
+    }
+});
 // Google Maps Scripts
 var map = null;
 // When the window has finished loading create our google map below

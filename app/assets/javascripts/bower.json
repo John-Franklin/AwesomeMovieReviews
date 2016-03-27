@@ -2,7 +2,7 @@
   "name": "AwesomeMovieReviews",
   "description": "",
   "dependencies": {
-    "angular-bootstrap": "*"
-
+    "angular-bootstrap": "*",
+    "angular-mocks": "*"
   }
 }

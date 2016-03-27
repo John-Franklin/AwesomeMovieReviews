@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+#unused, so specs don't matter here.
 describe "reviews/index" do
   before(:each) do
     assign(:reviews, [

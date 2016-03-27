@@ -70,33 +70,6 @@ ReviewsIndexCtrl = function($scope, $routeParams, Review, $http, $uibModal) {
 
 ReviewsIndexCtrl.$inject = ['$scope', '$routeParams', 'Review', "$http", '$uibModal'];
 
-ReviewsCreateCtrl = function($scope, $location, Review) {
-  return $scope.save = function() {
-    return Review.save($scope.review, function(review) {
-      return $location.path("/reviews/" + review.id + "/edit");
-    });
-  };
-};
-
-ReviewsCreateCtrl.$inject = ['$scope', '$location', 'Review'];
-
-ReviewsShowCtrl = function($scope, $location, $routeParams, Review) {
-  Review.get({
-    id: $routeParams.id
-  }, function(review) {
-    this.original = review;
-    return $scope.review = new Review(this.original);
-  });
-  return $scope.destroy = function() {
-    if (confirm("Are you sure?")) {
-      return $scope.review.destroy(function() {
-        return $location.path("/reviews");
-      });
-    }
-  };
-};
-
-ReviewsShowCtrl.$inject = ['$scope', '$location', '$routeParams', 'Review'];
 
 ReviewsEditCtrl = function($scope, $location, $routeParams, Review, oldScope, $uibModalInstance) {
   $scope.review = oldScope.currev;

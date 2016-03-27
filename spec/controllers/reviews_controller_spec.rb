@@ -23,7 +23,7 @@ describe ReviewsController do
   # This should return the minimal set of attributes required to create a valid
   # Review. As you add validations to Review, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "movie" => "MyString" } }
+  let(:valid_attributes) { { "movie" => "7", "rating" => 1, "email" => "johnfranklin42@gmail.com"} }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -34,32 +34,21 @@ describe ReviewsController do
     it "assigns all reviews as @reviews" do
       review = Review.create! valid_attributes
       get :index, {}, valid_session
+      #console.log(:reviews)
       assigns(:reviews).should eq([review])
     end
-  end
-
-  describe "GET show" do
-    it "assigns the requested review as @review" do
+    it "assigns reviews for a specific movie, movie there" do
       review = Review.create! valid_attributes
-      get :show, {:id => review.to_param}, valid_session
-      assigns(:review).should eq(review)
+      get :index, {"movie" => "7"}, valid_session
+      assigns(:reviews).should eq([review])
     end
-  end
-
-  describe "GET new" do
-    it "assigns a new review as @review" do
-      get :new, {}, valid_session
-      assigns(:review).should be_a_new(Review)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested review as @review" do
+    it "assigns reviews for a specific movie, movie not" do
       review = Review.create! valid_attributes
-      get :edit, {:id => review.to_param}, valid_session
-      assigns(:review).should eq(review)
+      get :index, {"movie" => "6"}, valid_session
+      assigns(:reviews).should eq([])
     end
   end
+
 
   describe "POST create" do
     describe "with valid params" do
@@ -74,11 +63,6 @@ describe ReviewsController do
         assigns(:review).should be_a(Review)
         assigns(:review).should be_persisted
       end
-
-      it "redirects to the created review" do
-        post :create, {:review => valid_attributes}, valid_session
-        response.should redirect_to(Review.last)
-      end
     end
 
     describe "with invalid params" do
@@ -87,13 +71,6 @@ describe ReviewsController do
         Review.any_instance.stub(:save).and_return(false)
         post :create, {:review => { "movie" => "invalid value" }}, valid_session
         assigns(:review).should be_a_new(Review)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Review.any_instance.stub(:save).and_return(false)
-        post :create, {:review => { "movie" => "invalid value" }}, valid_session
-        response.should render_template("new")
       end
     end
   end
@@ -106,20 +83,14 @@ describe ReviewsController do
         # specifies that the Review created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Review.any_instance.should_receive(:update).with({ "movie" => "MyString" })
-        put :update, {:id => review.to_param, :review => { "movie" => "MyString" }}, valid_session
+        Review.any_instance.should_receive(:update).with({ "movie" => "6" })
+        put :update, {:id => review.to_param, :review => { "movie" => "6" }}, valid_session
       end
 
       it "assigns the requested review as @review" do
         review = Review.create! valid_attributes
         put :update, {:id => review.to_param, :review => valid_attributes}, valid_session
         assigns(:review).should eq(review)
-      end
-
-      it "redirects to the review" do
-        review = Review.create! valid_attributes
-        put :update, {:id => review.to_param, :review => valid_attributes}, valid_session
-        response.should redirect_to(review)
       end
     end
 
@@ -131,30 +102,6 @@ describe ReviewsController do
         put :update, {:id => review.to_param, :review => { "movie" => "invalid value" }}, valid_session
         assigns(:review).should eq(review)
       end
-
-      it "re-renders the 'edit' template" do
-        review = Review.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Review.any_instance.stub(:save).and_return(false)
-        put :update, {:id => review.to_param, :review => { "movie" => "invalid value" }}, valid_session
-        response.should render_template("edit")
-      end
     end
   end
-
-  describe "DELETE destroy" do
-    it "destroys the requested review" do
-      review = Review.create! valid_attributes
-      expect {
-        delete :destroy, {:id => review.to_param}, valid_session
-      }.to change(Review, :count).by(-1)
-    end
-
-    it "redirects to the reviews list" do
-      review = Review.create! valid_attributes
-      delete :destroy, {:id => review.to_param}, valid_session
-      response.should redirect_to(reviews_url)
-    end
-  end
-
 end

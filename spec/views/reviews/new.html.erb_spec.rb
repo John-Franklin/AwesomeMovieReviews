@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+#unused, so specs don't matter here.
 describe "reviews/new" do
   before(:each) do
     assign(:review, stub_model(Review,
