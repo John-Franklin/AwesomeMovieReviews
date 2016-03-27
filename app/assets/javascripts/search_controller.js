@@ -6,11 +6,14 @@ root.angular.module("AwesomeMovieReviewsClient").controller("search",["$scope", 
     $scope.outer = function(i){
         $http.jsonp("http://api.themoviedb.org/3/movie/"+ $scope.movieList[i].id + "?api_key=1e0d0191f8844600e0220d21e1fe0b16&callback=JSON_CALLBACK").success(function(data){
             $scope.movieList[i] = data;
+            //console.log($scope.movieList[i])
         })
+
     }
     $scope.search = function()
     {
         $scope.noResults = false;
+        console.log()
         $http.jsonp(url+$scope.query).
         success(function(data) {
             //what do I do here?

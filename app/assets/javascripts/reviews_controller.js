@@ -1,6 +1,7 @@
 ReviewsIndexCtrl = function($scope, $routeParams, Review, $http, $uibModal) {
   $scope.isntBrowse = $routeParams.movie != null;
   $scope.blank = new Review();
+    $scope.params = {};
     if($routeParams.movie) {
       $scope.blank.movie = $routeParams.movie
         $http.jsonp("http://api.themoviedb.org/3/movie/"+$routeParams.movie + "?api_key=1e0d0191f8844600e0220d21e1fe0b16&callback=JSON_CALLBACK").success(function(data){
@@ -9,18 +10,19 @@ ReviewsIndexCtrl = function($scope, $routeParams, Review, $http, $uibModal) {
             //$scope.movie.backdrop_path = $scope.movie.backdrop_path.slice(1);
             //$scope.movie.poster_path = $scope.movie.poster_path.slice(1);
         })
-        $scope.reviews = Review.query({movie: $routeParams.movie}, $scope.getAverage);
+        $scope.params = {movie: $routeParams.movie};
     }
-    else
-        $scope.reviews = Review.query($scope.getAverage);
-    $scope.getAverage = function(elems)
+
+    Review.query($scope.params).$promise.then(function(elems)
     {
-        $scope.total = 0;
+        $scope.reviews = elems;
+        console.log(elems)
+        $scope.total = 0.0;
         for(var i = 0; i < $scope.reviews.length; i++)
             $scope.total += $scope.reviews[i].rating;
         if($scope.reviews.length > 0)
-        $scope.total /= $scope.reviews.length
-    }
+        $scope.total /= $scope.reviews.length;
+    })
     $scope.editModal=function(review)
     {
       $scope.currev = review;
@@ -44,28 +46,26 @@ ReviewsIndexCtrl = function($scope, $routeParams, Review, $http, $uibModal) {
       $scope.modalInstance.result.then(function(){
           // closed
           // console.log($scope.ratings)
-        if(!(review.id))
-          $scope.total = ($scope.total * ($scope.reviews.length - 1) + $scope.blank.rating)/$scope.reviews.length;
+        if(!(review.id)) {
+            $scope.total = ($scope.total * ($scope.reviews.length - 1) + $scope.blank.rating) / $scope.reviews.length;
+            $scope.blank = new Review();
+            $scope.blank.movie = $routeParams.movie;
+
+        }
       }, function(){
         // clicked away
         //
-        if(!review.id)
-          $scope.reviews.pop();
+        if(!review.id) {
+            $scope.reviews.pop();
+            $scope.total = ($scope.total * ($scope.reviews.length - 1) - $scope.oldrev.rating + $scope.blank.rating) / $scope.reviews.length;
+            $scope.blank = new Review();
+        }
         else//snap back
           review = $scope.oldRev;
 
       });
+        return $scope.modalInstance;
     }
-
-  return $scope.destroy = function() {
-    var original;
-    if (confirm("Are you sure?")) {
-      original = this.review;
-      return this.review.destroy(function() {
-        return $scope.reviews = _.without($scope.reviews, original);
-      });
-    }
-  };
 };
 
 ReviewsIndexCtrl.$inject = ['$scope', '$routeParams', 'Review', "$http", '$uibModal'];

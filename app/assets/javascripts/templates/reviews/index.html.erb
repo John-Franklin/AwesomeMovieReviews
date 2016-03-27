@@ -12,7 +12,7 @@
 </header>
 <h1 ng-show="isntBrowse">Reviews</h1>
 <h1 ng-show="reviews && !isntBrowse">Recent Reviews</h1>
-<p ng-show="isntBrowse">Average Rating: {{total}}</p>
+<p ng-show="isntBrowse">Average Rating: {{total | number : 2}}</p>
 <table class="table">
   <thead>
     <tr>

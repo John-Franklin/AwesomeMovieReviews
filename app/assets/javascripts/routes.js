@@ -18,10 +18,7 @@
       $httpProvider.defaults.headers.get['Accept'] = 'application/json';
 
       $httpProvider.defaults.headers.get['Content-Type'] = 'application/json; charset=utf-8';
-      return $routeProvider.when("/", {
-        controller: "WelcomeCtrl",
-        templateUrl: "<%= asset_path('welcome/index.html') %>"
-      }).
+      return $routeProvider.
     when('/reviews', {controller:ReviewsIndexCtrl,
       templateUrl:'reviews/index.html'}).
     when('/search', {controller:"search",

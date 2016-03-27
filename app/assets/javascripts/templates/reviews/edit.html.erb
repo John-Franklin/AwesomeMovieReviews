@@ -11,14 +11,14 @@
     <div class="modal-body">
         <div class="form-group has-feedback">
           <label class="control-label">Email</label>
-          <input type="text" class="form-control" name="review[rating]" id="lastnameinput" ng-model="review.email" aria-describedby="lastnameinput" required>
+          <input type="text" class="form-control" name="review[rating]" placeholder="****@gmail.com" id="lastnameinput" ng-model="review.email" aria-describedby="lastnameinput" required>
           <span ng-show="editReview.email.$error.required" class="help-inline">
             Required
           </span>
         </div>
       <div class="form-group has-feedback">
         <label class="control-label">Rating</label>
-            <input type="number" class="form-control" name="review[rating]" ng-model="review.rating" class="number_field" min="1" max="5" required>
+            <input type="number" class="form-control" placeholder="1-5" name="review[rating]" ng-model="review.rating" class="number_field" min="1" max="5" required>
           <span ng-show="editReview.rating.$error.required"
                 class="help-inline">
             Required
@@ -26,7 +26,7 @@
       </div>
       <div class="form-group has-feedback">
         <label class="control-label">Comment</label>
-        <input type="text" class="form-control" name="review[comment]" ng-model="review.comment" class="text_area">
+        <input type="text" class="form-control" placeholder="Movie was Awesome" name="review[comment]" ng-model="review.comment" class="text_area">
 
       </div>
     </div>

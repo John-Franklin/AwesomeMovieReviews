@@ -3,6 +3,9 @@
   "description": "",
   "dependencies": {
     "angular-bootstrap": "*",
-    "angular-mocks": "*"
+    "angular-mocks": "*",
+    "angular-resource": "*",
+    "angular-cookies": "*",
+    "angular-route": "*"
   }
 }
