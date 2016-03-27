@@ -18,7 +18,7 @@ describe('search', function() {
 
     });
 
-    it('works in callback', function() {//both of these demonstrate that we correctly call apis.
+    it('works in callback', function() {//both of these demonstrate that the functions correctly call apis. Other requirements tested on backend or are part of scaffolding or angular-scaffolding dressed up to look nicer.
         var controller = createController();
         console.log(scope)
        scope.movieList = [{id:100}];
