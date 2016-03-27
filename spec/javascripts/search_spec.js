@@ -15,8 +15,7 @@ describe('search', function() {
         };
     }));
     afterEach(function() {
-        httpBackend.verifyNoOutstandingExpectation();
-        httpBackend.verifyNoOutstandingRequest();
+
     });
 
     it('works in callback', function() {//both of these demonstrate that we correctly call apis.
@@ -24,33 +23,30 @@ describe('search', function() {
         console.log(scope)
        scope.movieList = [{id:100}];
         scope.outer(0);
-        httpBackend.expect('JSONP', 'http://api.themoviedb.org/3/movie/100?api_key=1e0d0191f8844600e0220d21e1fe0b16&callback=JSON_CALLBACK')
+        httpBackend.when('JSONP', 'http://api.themoviedb.org/3/movie/100?api_key=1e0d0191f8844600e0220d21e1fe0b16&callback=JSON_CALLBACK')
             .respond({
                 exists:true
             });
-
         // have to use $apply to trigger the $digest which will
         // take care of the HTTP request
-
-        httpBackend.flush();
-
-        expect(scope.movieList[0]).toEqual([{
+        httpBackend.flush()
+        expect(scope.movieList[0]).toEqual({
             exists:true
-        }])
+        })
 
     });
     it('works in main', function() {
         var controller = createController();
+        scope.movieList = [];
         scope.query = 'testing'
-
+        scope.outer = function(i){}
         scope.search();
-        httpBackend.expect('JSONP', 'https://api.themoviedb.org/3/search/movie?api_key=1e0d0191f8844600e0220d21e1fe0b16&callback=JSON_CALLBACK&query=testing')
-            .respond([{
+        httpBackend.when('JSONP', 'https://api.themoviedb.org/3/search/movie?api_key=1e0d0191f8844600e0220d21e1fe0b16&callback=JSON_CALLBACK&query=testing')
+            .respond({results:[{
                 exists:true
-            }]);
+            }]});
+        httpBackend.flush()
 
-
-        httpBackend.flush();
 
         expect(scope.movieList[0].exists).toEqual(true)
 
